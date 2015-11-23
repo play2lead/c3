@@ -2,7 +2,6 @@
 // 1. category axis
 // 2. ceil values of translate/x/y to int for half pixel antialiasing
 // 3. multiline tick text
-var tickTextCharSize;
 function c3_axis(d3, params) {
     var scale = d3.scale.linear(), orient = "bottom", innerTickSize = 6, outerTickSize, tickPadding = 3, tickValues = null, tickFormat, tickArguments;
 
@@ -52,9 +51,6 @@ function c3_axis(d3, params) {
         return typeof formatted !== 'undefined' ? formatted : '';
     }
     function getSizeFor1Char(tick) {
-        if (tickTextCharSize) {
-            return tickTextCharSize;
-        }
         var size = {
             h: 11.5,
             w: 5.5
@@ -69,7 +65,6 @@ function c3_axis(d3, params) {
                 size.w = w;
             }
         }).text('');
-        tickTextCharSize = size;
         return size;
     }
     function transitionise(selection) {

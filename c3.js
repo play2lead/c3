@@ -6930,7 +6930,6 @@
     // 1. category axis
     // 2. ceil values of translate/x/y to int for half pixel antialiasing
     // 3. multiline tick text
-    var tickTextCharSize;
     function c3_axis(d3, params) {
         var scale = d3.scale.linear(), orient = "bottom", innerTickSize = 6, outerTickSize, tickPadding = 3, tickValues = null, tickFormat, tickArguments;
 
@@ -6977,12 +6976,9 @@
         }
         function textFormatted(v) {
             var formatted = tickFormat ? tickFormat(v) : v;
-            return typeof formatted !== 'undefined' ? formatted.toString() : '';
+            return typeof formatted !== 'undefined' ? formatted : '';
         }
         function getSizeFor1Char(tick) {
-            if (tickTextCharSize) {
-                return tickTextCharSize;
-            }
             var size = {
                 h: 11.5,
                 w: 5.5
@@ -6997,7 +6993,6 @@
                     size.w = w;
                 }
             }).text('');
-            tickTextCharSize = size;
             return size;
         }
         function transitionise(selection) {
@@ -7079,7 +7074,7 @@
                     var dy = sizeFor1Char.h;
                     if (i === 0) {
                         if (orient === 'left' || orient === 'right') {
-                            dy = -((counts[d.index] - 1) * (sizeFor1Char.h / 2) - sizeFor1Char.h / 4);
+                            dy = -((counts[d.index] - 1) * (sizeFor1Char.h / 2) - 3);
                         } else {
                             dy = ".71em";
                         }
